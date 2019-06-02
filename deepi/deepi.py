@@ -106,3 +106,4 @@ class DeePi( picamera.PiCamera ):
             def run(self):
                 # TODO: record to disk
                 pass
+
