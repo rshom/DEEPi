@@ -1,0 +1,16 @@
+#! /bin/usr/env python3
+
+'''
+Network connections to DeePi
+'''
+
+import io
+import socket
+import struct
+from PIL import Image
+
+pi_server = '192.168.0.3'
+port=3141
+
+pi = socket.socket()
+pi.bind(

@@ -1,0 +1,67 @@
+import picamera
+import io
+from _thread import *
+import socket
+
+class DeePi( picamera.PiCamera ):
+    '''PiCamera implementation for deep sea applications.
+    
+    '''
+
+    def __init__(self):
+        super().__init__()
+
+    def __repr__(self):
+        pass
+
+    def __str__(self):
+        pass
+
+    def __enter__(self):
+        '''Called whenever instance is opened using a with statement see __exit__'''
+        pass
+
+    def __exit__(self):
+        '''Called at end of with statement'''
+        pass
+
+    def stream_live(self, broadcast='0.0.0.0', port=3141):
+        '''Continuous capture and send stream'''
+
+        # set up socket using TCP
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        #TODO: change to UDP socket
+
+        try:
+            s.bind((broadcast,port))
+        except socket.error:
+            print("Binding failed")
+            #TODO: handle this error gracefully
+
+        s.listen(10)
+        #TODO: learn more about this
+
+        def clientthread(conn):
+            conn.send("Connected to this pi")
+            #TODO: find some way to identify the Pis
+
+            while True:
+                data = conn.recv(1024)
+                #TODO: why 1024
+                reply = "OK. " + data.decode()
+                if not data:
+                    break
+                print(reply)
+                conn.sendall(reply)
+
+            # if loop is broken
+            conn.close()
+            
+
+        stream = io.BytesIO()
+
+        while True:
+            conn, addr = s.accept()
+            print("Connected with " + addr[0]+":" + str(addr[1]))
+            start_new_thread(clientthread, (conn,))
+        
