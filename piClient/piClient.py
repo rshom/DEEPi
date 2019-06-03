@@ -11,9 +11,6 @@ import struct
 from PIL import Image
 import cv2
 
-pi_server = "0.0.0.0"
-port = 1234
-
 class CamStream:
 
     def __init__(self, pi_addr, port):
@@ -54,8 +51,9 @@ class CamStream:
             cv_image = np.array(image)
             yield cv_image
         
-if __name__=='__main__':
-    with CamStream('0.0.0.0',1234) as cam:
+def catch_stream( port ):
+    '''Live stream from a single camera'''
+    with CamStream('0.0.0.0',port) as cam:
         image_stream = cam.pull_stream()
         while True:
             try:
@@ -67,4 +65,24 @@ if __name__=='__main__':
                 break
             
 
+def stereo_stream( portLeft, portRight ):
+    '''Stream images together'''
+    with CamStream('0.0.0.0', portLeft) as camLeft, CamStream('0.0.0.0', portRight) as camRight:
+        streamLeft = camLeft.pull_stream()
+        streamRight = camRight.pull_stream()
+        while True:
+            try:
+                imageRight = next(streamRight)
+                imageLeft = next(streamLeft)
+                cv_image = np.concatenate( (imageLeft, imageRight), axis=1 )
+                #cv_image = cv2.cvtColor(imageLeft, cv2.COLOR_BGR2GRAY) - cv2.cvtColor(imageRight, cv2.COLOR_BGR2GRAY)
+                cv2.imshow('Stereo Stream', cv_image)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+            except:
+                break
+    
+    
+if __name__=='__main__':
+    stereo_stream( 1235,1234 )
 
