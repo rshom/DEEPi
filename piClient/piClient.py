@@ -11,6 +11,8 @@ import struct
 from PIL import Image
 import cv2
 
+breakpoint()
+
 class CamStream:
 
     def __init__(self, pi_addr, port):
