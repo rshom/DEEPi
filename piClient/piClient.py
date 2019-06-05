@@ -11,8 +11,6 @@ import struct
 from PIL import Image
 import cv2
 
-breakpoint()
-
 class CamStream:
 
     def __init__(self, pi_addr, port):
@@ -86,5 +84,5 @@ def stereo_stream( portLeft, portRight ):
     
     
 if __name__=='__main__':
-    stereo_stream( 1235,1234 )
-
+    #stereo_stream( 1235,1234 )
+    catch_stream( 1234 )

@@ -1,99 +1,79 @@
-# Instructions
+# DeePi
 
-1. Connect pi and main computer (server) to same network.
-2. SSH into pi using the following command and the password set.
-
-```{sh}
-$ ssh pi@192.168.0.2
-```
-
-3. Open python and import the module.
-   Recommend attaching to a screen terminal emulator first.
-   The help command will be useful now.
-
-```{sh}
-$ screen -a
-$ python3
-```
-```{python}
->>> import deepPi
->>> help(deepPi)
-```
-
-4. Using the information from help(deepPi), you can operate the camera manually.
-   For more advanced commands access deepPi.camera directly.
-5. To send DeepPi deep, use the deploy command.
-
-```{python}
->>> deepPi.deploy()
-```
-
-6. Detach from screen (CTRL-d) and kill the ssh (CTRL-d).
-7. Send it deep.
-8. Recover
-9. Reconnect via ssh and resume the screen session
-
-```{sh}
-$ ssh pi@192.168.0.2
-$ screen -r
-```
-
-10. Shutdown and disconnect
-
-```{python}
->>> shutdown()
-```
-
-```{sh}
-$ exit()
-```
+Deep Sea modular camera system using raspberry-pi.
 
 # TODO
 
-- [ ] Modify stream to make it faster
-- [ ] Set up a package manager for the Pi itself
-  - [ ] pip download with all requirements
-  - [ ] scp tarball to Pi
-  - [ ] pip install on Pi
-  - [ ] check python versions
-- [ ] Run tests to see if it is working at the start
+ - [ ] Make a TODO list
+ - [ ] Create wheel for client
+ - [ ] Create wheel for server
 
-# PI modifications
+# Table of Contents
+  * What is this?
+  * Requirements
+  * Documentation
+  * Set Up
+  * License
+  * Use-case
+  * Contribution
+  * Support
+  * Authors
 
-Code is added to the end dhcpcd.conf to create a static IP.
-In order to connect to the net normally (to download updates), this must be commented out
+# What is this?
 
- - [ ] find a different way to set this up
+Python code to manage raspberry-pis with cameras optimized for use underwater.
 
-```
-sudo nano /etc/dhcpcd.conf
-```
+Features
 
-# Pi Set Up
+ 1. Simplified preconfigured camera commands.
+ 2. Ability to create more complex scripts.
+ 3. Stereo vision related capabilities.
+ 4. Camera cluster capabilities.
+ 
+This codebase is designed to pair with the [DeePi](https://web.uri.edu/oce/brennan-phillips/) hardware.
+However, it may be useful in other context.
+ 
+# Requirements
 
-## Install Packages
+  * Raspberry Pi with minimal install
+  * Python 3.6.x with:
+	* PiCamera
+	* OpenCV
+	* PILLOW
+  * more...
 
-Follow these instructions if the Pi is not already set up correctly,
-and you can't use a flashed image
+# Documentation
 
-1. Burn a minimal pi image.
+This README only shows some examples of this project.
 
-While the disk is still mounted in your computer, place an empty file named ssh in the boot directory.
+Further documentation is online and in the python help() command.
 
-- [ ] Set up for the network configuration 
+# Set Up
 
-```{bash}
-# network config
-```
+# Basic Camera
 
-2. Install python3 and related packages.
+# Stereo Vision
 
-Download latest stable python as a Gzipped tarball
+# Camera Cluster
 
-https://www.python.org/downloads/source/
+# License
 
-```
-scp Python-x.x.x.tgz pi@192.168.0.x
-ssh pi@192.168.0.x
+MIT
 
-```
+# Use-case
+
+If this project helps you, please let us now. 
+
+# Contribution
+
+Please reach out directly if you would like to contribute on the project.
+
+# Support
+
+Please reach out directly if you would like to support the project.
+
+# Authors
+
+  * [Russell Shomberg](https://rshom.github.io)
+  * [Brennen Phillips](https://web.uri.edu/oce/brennan-phillips/)
+
