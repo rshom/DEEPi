@@ -1,4 +1,4 @@
-# DeePi
+# DEEPi
 
 Deep Sea modular camera system using raspberry-pi.
 
@@ -9,17 +9,18 @@ Deep Sea modular camera system using raspberry-pi.
  - [ ] Create wheel for server
 
 # Table of Contents
-  * What is this?
+  * Overview
   * Requirements
   * Documentation
   * Set Up
+  * Examples
   * License
   * Use-case
   * Contribution
   * Support
   * Authors
 
-# What is this?
+# Overview
 
 Python code to manage raspberry-pis with cameras optimized for use underwater.
 
@@ -30,7 +31,7 @@ Features
  3. Stereo vision related capabilities.
  4. Camera cluster capabilities.
  
-This codebase is designed to pair with the [DeePi](https://web.uri.edu/oce/brennan-phillips/) hardware.
+This codebase is designed to pair with the [DEEPi](https://web.uri.edu/oce/brennan-phillips/) hardware.
 However, it may be useful in other context.
  
 # Requirements
@@ -50,11 +51,12 @@ Further documentation is online and in the python help() command.
 
 # Set Up
 
-# Basic Camera
+# Examples
+## Basic Camera
 
-# Stereo Vision
+## Stereo Vision
 
-# Camera Cluster
+## Camera Cluster
 
 # License
 
@@ -62,7 +64,7 @@ MIT
 
 # Use-case
 
-If this project helps you, please let us now. 
+If this project helps you, please let us know. 
 
 # Contribution
 

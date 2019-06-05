@@ -1,5 +1,3 @@
-#! /bin/usr/env python3
-
 '''
 Network connections to DeePi
 '''
