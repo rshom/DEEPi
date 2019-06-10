@@ -13,6 +13,7 @@ class CamStream:
 
     def __init__(self, pi_addr, port):
         self.pi = socket.socket()
+        # TODO: impo
         self.pi.bind( (pi_addr, port) )
         self.pi.listen(0)
         self.port = port
