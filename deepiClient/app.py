@@ -20,6 +20,7 @@ def send_command():
     print(response)
     return '', 204
 
+# TODO: impliment video streams
 
 if __name__ == '__main__':
     app.run( debug=True, host='0.0.0.0')

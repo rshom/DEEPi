@@ -1,6 +1,7 @@
 import ipaddress
 import socket
 import sys
+import concurrent.futures
 
 __PORT = 3000
 
@@ -58,17 +59,25 @@ def check_addr(addr, port=__PORT):
     return result
     
 
-def scan_network(mask='192.168.0.1/24', port=__PORT):
+def scan_network(mask='192.168.0.0/24', port=__PORT):
     '''Check subnet for possible connections'''
     # TODO: impliment some kind of test to ensure the pi is operational
     subnet = ipaddress.ip_network(mask)
     ipSet = set()
-    for host in subnet.hosts():
-        print("Checking {}:{}".format(host, port))
-        result = check_addr(str(host),port)
-        if result == '111':
-            ipSet.add(host)
+    import time
+    start = time.time()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
+        future_to_host = {executor.submit(check_addr, str(host), port): host for host in subnet.hosts()}
+        for future in concurrent.futures.as_completed(future_to_host):
+            host = future_to_host[future]
+            print("Checking {}:{}".format(host, port))
+            #result = check_addr(str(host),port)
+            result = future.result()
+            if result == '111':
+                ipSet.add(host)
+            print("{}:{}".format(host,result))
     print(ipSet)
+    print(time.time()-start)
     return ipSet
 
 def sync_time(addr, port=__PORT):
