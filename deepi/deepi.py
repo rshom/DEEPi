@@ -1,8 +1,4 @@
-#! /usr/bin/env python3
-
-'''
-PiCamera implementation for deep sea applications
-'''
+'''PiCamera implementation for deep sea applications'''
 
 # TODO: impliment logging as necessary
 
@@ -42,10 +38,11 @@ class DeePi( picamera.PiCamera ):
 
     def __enter__(self):
         '''Called whenever instance is opened using a with statement'''
-        pass
+        return self
 
 
-    def __exit__(self):
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        '''Close out anything necessary'''
         self.close()
 
 
