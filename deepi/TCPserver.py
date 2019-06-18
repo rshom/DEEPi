@@ -15,6 +15,7 @@ class RequestHandler(socketserver.BaseRequestHandler):
         self.data = self.request.recv(1024).strip()
         # TODO: impliment logging
         cmd = (self.data).decode("utf-8")
+
         print("{} wrote: {}".format(self.client_address[0], cmd))
         # TODO: send commands to handler that has dictionary of funcitons
         # TODO: log any commands recieved

@@ -21,10 +21,6 @@ def send_command(command, addr, port=__PORT):
     except ConnectionRefusedError as err:
         return err
 
-    except:
-        print("Unexpected Error!: Check logs.")
-        raise
-
     else:
         sock.close()
         return response.decode("utf-8")
@@ -47,14 +43,12 @@ def command_prompt( addr, port=__PORT ):
         if command == 'exit()':
             break
 
-        if command
-
         response = send_command(command, addr, port)
         print("Rcvd from {}:{}".format(addr,port))
         print(response)
 
 
 if __name__=='__main__':
-    addr, port = "localhost", __PORT
+    addr, port = "192.168.0.3", __PORT
               
     command_prompt(addr, port)

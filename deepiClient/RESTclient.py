@@ -1,18 +1,51 @@
+'''Send HTTP requests to DEEPi'''
+
 import requests
-import json
 
+__IP = '127.0.0.1'
+__PORT = 5000
 
+__BASE_URL = 'http://{}:{}'.format(__IP,__PORT)
 
-def send_command():
+def get_status(ip,port):
+    '''Standard GET request will return status as JSON'''
+    r = requests.get('http://{}:{}/status'.format(ip,port))
+    return r.json()
     
-    url = 'http://localhost:5000/cmd/'
     
-    data = '[{"$key": 8},{"$key": 7}]'
+def send_command(cmd, ip=__IP, port=__PORT):
+    url = 'http://{}:{}/cmd'.format(ip,port)
+    payload = {'cmd':cmd}
+    print(payload)
+    print(url)
+    r = requests.post(url, json=payload)
+    print(r.text)
+    if r.status_code != 200:
+        print("ERROR: {}".format(r.status_code))
+    else:
+        return r.json()
 
-    headers = {"Content-Type": "application/json"}
+def command_prompt( addr, port=__PORT ):
+    '''Open a simplified command prop to send commands'''
+    print("Welcome to the DEEPi command line interface")
+    print("Currently configured for {}:{}".format(addr,port))
+    # TODO: impliment some kind of help menu
+    # TODO: impliment a way to change IP or scan for DEEPi on network
+    while True:
+        command = input("> ")
+
+        if command == 'exit()':
+            break
+
+        response = send_command(command, addr, port)
+        print("Rcvd from {}:{}".format(addr,port))
+        print(response)
+
+if __name__=='__main__':
+    addr, port = "192.168.0.3", __PORT
+              
+    command_prompt(addr, port)
+
     
-    response = requests.put(url, data=data, headers=headers)
-    
-    res = response.json()
-    
-    print(res)
+
+                      

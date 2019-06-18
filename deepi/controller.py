@@ -4,7 +4,19 @@ Commands for DEEPi system
 
 #import deepi
 
+
+
 threads = []
+
+# TODO: impliment actual status dictionary
+status = {"ip":'0.0.0.0',
+          "port": 3000,
+          "threads": threads
+}
+
+# TODO: update status function that checks actual status of camera at the end of everfunciton
+# perhaps a decorator
+
 
 # TODO: implement logging and threading here
 
@@ -32,12 +44,8 @@ def record( split_time=None ):
     return report
 
 def status():
-    # TODO: 
-    report = {"ip":'0.0.0.0',
-              "port": 3000,
-              "threads": threads
-              }
-    return report
+    report = status
+    return str(report)
 
 def command_prompt():
 
