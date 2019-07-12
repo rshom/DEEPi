@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# simple script transfers any files to the Pi
+
+IP=192.168.0.2
+
+MAINNET=URI-PEAP-New
+PINET=TP-Link_B7A6
+
+nmcli connection down $MAINNET
+nmcli connection up $PINET
+
+scp -pr transfers pi@$IP:
+
+nmcli connection down $PINET
+nmcli connection up $MAINNET

@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    ipList = ['192.168.0.2','192.168.0.100']
+    ipList = ['172.20.150.190','172.20.150.190']
     #ipList = piScan()
     return render_template('index.html', ipList = ipList)
 

@@ -3,7 +3,7 @@
 import flask
 import controller
 
-__PORT = 5000
+__PORT = 3000
 
 app = flask.Flask(__name__, template_folder=None)
 
@@ -27,8 +27,20 @@ def cmd():
 
     # TODO: impliment flask.logger
     return flask.jsonify(res)
-    
+
+def gen(camera):
+    '''Video streaming generator function.'''
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+@app.route('/video_feed')
+def video_feed():
+    '''Video streaming route. Put this in the src attribute of an img tag.'''
+    return Response(gen(controller.deepi()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0', port=__PORT)
+    app.run(host='0.0.0.0', port=__PORT, threaded=True)
 

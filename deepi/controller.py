@@ -2,9 +2,9 @@
 Commands for DEEPi system
 '''
 
+import os
+
 #import deepi
-
-
 
 threads = []
 
@@ -14,13 +14,17 @@ status = {"ip":'0.0.0.0',
           "threads": threads
 }
 
-# TODO: update status function that checks actual status of camera at the end of everfunciton
-# perhaps a decorator
-
-
+# TODO: update status function that checks actual status of camera at the end of every funciton
+## perhaps a decorator
 # TODO: implement logging and threading here
-
 # TODO: implement actual commands
+
+def set_time(date_str):
+    '''set the CPU clock using an external clock'''
+    os.system('sudo date -s "{}"'.format(date_str))
+
+    report = "Time set to {}".format(date_str)
+    return report
 
 def deploy():
     '''Run a customizable deployment script'''

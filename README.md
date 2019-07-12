@@ -51,6 +51,8 @@ Further documentation is online and in the python help() command.
 
 # Set Up
 
+See notes.md for more info
+
 # Examples
 ## Basic Camera
 

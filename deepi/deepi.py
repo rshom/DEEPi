@@ -16,6 +16,7 @@ class DeePi( picamera.PiCamera ):
     '''
     PiCamera implementation for deep sea applications.
     '''
+
     def __init__(self):
         super().__init__()
         #TODO: set up socket looking for command from topside <>
@@ -66,11 +67,9 @@ class DeePi( picamera.PiCamera ):
             stream = io.BytesIO()
             for _ in self.capture_continuous(stream, 'jpeg'):
                 connection.write(struct.pack('<L', stream.tell()))
-                # ???: wat
                 connection.flush()
                 stream.seek(0)
                 connection.write(stream.read())
-                # ???: wat
 
                 if time.time()-start > 30:
                     break

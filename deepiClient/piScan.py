@@ -54,7 +54,7 @@ def scan_net(subnet, server_style='REST', port=__PORT):
     
     if server_style=='REST':
         cmd = rest_check
-        port = 5000
+        port = 3000
     elif server_style=='TCP':
         cmd = tcp_check
         port = 3000
@@ -78,15 +78,18 @@ def scan_net(subnet, server_style='REST', port=__PORT):
     return ipSet
 
 
-if __name__=='__main__':
+def piScan():
     IP = get_ip()
     print("Client IP: {}".format(IP))
     subnet = get_subnet(IP)
+    print("subnet")
     ipSet = scan_net(subnet)
     print("DEEPi IPs:")
     if not bool(ipSet):
         print("No DEEPi's found! Check configuration")
         
-    print("DEEPi found:")
+    '''
     for ip in ipSet:
-        print(ip)
+        RESTclient.sync_time(IP,5000)
+    '''
+    return ipSet

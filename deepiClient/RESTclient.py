@@ -1,25 +1,19 @@
 '''Send HTTP requests to DEEPi'''
 
+import time
 import requests
 
-__IP = '127.0.0.1'
 __PORT = 5000
 
-__BASE_URL = 'http://{}:{}'.format(__IP,__PORT)
-
-def get_status(ip,port):
+def get_status(addr,port):
     '''Standard GET request will return status as JSON'''
-    r = requests.get('http://{}:{}/status'.format(ip,port))
+    r = requests.get('http://{}:{}/status'.format(addr,port))
     return r.json()
     
-    
-def send_command(cmd, ip=__IP, port=__PORT):
-    url = 'http://{}:{}/cmd'.format(ip,port)
+def send_command(cmd, addr, port=__PORT):
+    url = 'http://{}:{}/cmd'.format(addr,port)
     payload = {'cmd':cmd}
-    print(payload)
-    print(url)
     r = requests.post(url, json=payload)
-    print(r.text)
     if r.status_code != 200:
         print("ERROR: {}".format(r.status_code))
     else:
@@ -30,7 +24,7 @@ def command_prompt( addr, port=__PORT ):
     print("Welcome to the DEEPi command line interface")
     print("Currently configured for {}:{}".format(addr,port))
     # TODO: impliment some kind of help menu
-    # TODO: impliment a way to change IP or scan for DEEPi on network
+    # TODO: impliment a way to change ADDR or scan for DEEPi on network
     while True:
         command = input("> ")
 
@@ -38,12 +32,22 @@ def command_prompt( addr, port=__PORT ):
             break
 
         response = send_command(command, addr, port)
+        print()
+        print()
         print("Rcvd from {}:{}".format(addr,port))
         print(response)
+        print()
+
+def sync_time( addr, port=__PORT):
+    '''Send current time to pi and tell it to sync itself'''
+    # TODO: impliment a more accurate time sync
+    cmd = 'set_time("{}")'.format(time.asctime())
+    send_command( cmd, addr, port )
+
 
 if __name__=='__main__':
     addr, port = "192.168.0.3", __PORT
-              
+    sync_time(addr,port)
     command_prompt(addr, port)
 
     
