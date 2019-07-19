@@ -4,13 +4,15 @@ from flask import Flask, render_template, redirect, url_for, Response, request
 import io
 
 import RESTclient
+from piScan import piScan
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    ipList = ['192.168.0.2','192.168.0.104','192.168.0.101']
-    return render_template('index.html', ipList=ipList)
+    ipList = ['192.168.0.2','192.168.0.100']
+    #ipList = piScan()
+    return render_template('index.html', ipList = ipList)
 
 @app.route('/cmd/', methods=['GET'])
 def send_command():
@@ -24,5 +26,5 @@ def send_command():
 # TODO: impliment video streams
 
 if __name__ == '__main__':
-    app.run( debug=True, host='0.0.0.0', port=5001)
+    app.run( debug=True, host='0.0.0.0')
 

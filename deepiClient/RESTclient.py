@@ -46,7 +46,7 @@ def sync_time( addr, port=__PORT):
 
 
 if __name__=='__main__':
-    addr, port = "192.168.0.3", __PORT
+    addr, port = "192.168.0.2", __PORT
     sync_time(addr,port)
     command_prompt(addr, port)
 

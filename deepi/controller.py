@@ -26,6 +26,21 @@ def set_time(date_str):
     report = "Time set to {}".format(date_str)
     return report
 
+def setup_folder(name=None):
+    if name=None:
+        name = datetime.datetime.utcnow().isoformat()[:-10].replace('-','').replace(':','')
+    divefolder = '/home/pi/{}/'.format(name)
+    try:
+        os.mkdir( self.divefolder )
+        #TODO: first check if it exists <>
+        return True
+    except:
+        print("Unable to create dive folder: using current directory instead")
+        #TODO: log error correctly <>
+        self.divefolder = ''
+        return False
+
+
 def deploy():
     '''Run a customizable deployment script'''
     report = "Deploying"
