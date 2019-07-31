@@ -13,6 +13,8 @@ rshomberg@uri.edu
 
 SSID and pin written on bottom of router.
 
+This should be changed to DEEPiNet and deepinet via the router admin page for the 2.4GHz network.
+
 #### Router Admin page
 
   * http://tplinkwifi.net or http://192.168.0.1 
@@ -20,6 +22,44 @@ SSID and pin written on bottom of router.
   * password: admin
 
 For information on connected devices: IP & MAC Binding/ARP List
+
+## Initial Pi Set up
+
+1. Flash image using balena etcher.
+2. Mount the /boot partition of the newly flashed drive
+3. Place an empty file called ssh in /boot
+4. Create a file wpa_supplicant.conf in /boot
+
+```
+# wpa_supplicant.conf
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+network={
+	ssid="DEEPiNet"
+	psk="deepinet"
+	key_mgmt=WPA-PSK
+}
+```
+
+5. Boot up the pi and and ssh in while on the same network
+
+```
+$ ssh pi@raspberrypi.local
+```
+
+Default password should be raspberry.
+
+6. Start camera interface
+
+```
+$ sudo raspi-config
+```
+
+7. Reboot pi
+8. Install linux packages
+9. Install python modules
+10. Transfer DEEPi program
+
 
 ## Installing Software
 
@@ -92,6 +132,10 @@ sudo dpkg -i package.deb
 
 If you run into issues with dependencies, you will need to install those first using the same process.
 Each package site has a list of dependencies..
+
+### List of linux packages to install
+
+ - [ ] emacs
 
 ### Install Python modules
 
