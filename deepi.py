@@ -1,6 +1,6 @@
 '''PiCamera implementation for deep sea applications'''
 
-# TODO: impliment logging as necessary
+#TODO: impliment logging as necessary
 
 import io
 import os
@@ -18,6 +18,7 @@ class DEEPi(PiCamera):
     '''
     
     def __init__(self, diveFolder="./"):
+        '''Initiate camera and lock resources'''
         PiCamera.__init__(self)
         self.diveFolder=diveFolder
         self.deployed=False
@@ -31,36 +32,26 @@ class DEEPi(PiCamera):
         PiCamera.close(self)
         # TODO: check for threads and terminate/join them <>
 
-    def record_videos( self, vid_length=6000 ):
-        '''Record and save split video files to dive folder'''
-
-        class RecorderThread( threading.Thread ):
-
-            def __init__(self):
-                super().__init__()
-                # TODO: set up to record
-                self.start()
-
-            def run(self):
-                PiCamera.start_recording(next(genName)+'.h264')
-                while PiCamera.recording==True:
-                    PiCamera.wait_recording(vid_length)
-                    PiCamera.split_recording(next(genName)+'.h264')
-
     def update_frame(self):
+        '''Continuous capture that saves the latest frame in memory.
+        Any live stream applications will access this updating frame
+        '''
         self.stream = io.BytesIO()
         print("starting capture")
         for _ in PiCamera.capture_continuous(self, self.stream, 'jpeg', use_video_port=True):
+            #TODO: ensure splitter port and resolution are properly calibrated.
             self.stream.seek(0)
             self.last_frame =  self.stream.read()
             self.stream.seek(0)
             self.stream.truncate()
+            #TODO: double check the stream stop and start process
             if ((time.time()-self.last_access)>10):
                 print(time.time()-self.last_access)
                 self.stream = None
                 break
 
     def start_stream(self):
+        '''Start and stop the threaded process for updating the live stream frame'''
         self.last_access=time.time()
         if self.thread is None:
             self.thread = threading.Thread(target=self.update_frame)

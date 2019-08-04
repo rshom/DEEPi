@@ -2,12 +2,6 @@
 
 Deep Sea modular camera system using raspberry-pi.
 
-# TODO
-
- - [ ] Make a TODO list
- - [ ] Create wheel for client
- - [ ] Create wheel for server
-
 # Table of Contents
   * Overview
   * Requirements
@@ -29,19 +23,11 @@ Features
  1. Simplified preconfigured camera commands.
  2. Ability to create more complex scripts.
  3. Stereo vision related capabilities.
- 4. Camera cluster capabilities.
  
 This codebase is designed to pair with the [DEEPi](https://web.uri.edu/oce/brennan-phillips/) hardware.
 However, it may be useful in other context.
  
 # Requirements
-
-  * Raspberry Pi with minimal install
-  * Python 3.6.x with:
-	* PiCamera
-	* OpenCV
-	* PILLOW
-  * more...
 
 # Documentation
 
